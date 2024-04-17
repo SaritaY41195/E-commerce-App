@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_e_commerce_app/models/kids_sneakers_model.dart';
 import 'package:flutter_e_commerce_app/models/latest_shoes_model.dart';
 import 'package:flutter_e_commerce_app/models/product_card_model.dart';
-import 'package:flutter_e_commerce_app/models/women_sneakers_model.dart';
 import 'package:flutter_e_commerce_app/views/shared/appStyle.dart';
 
+import '../shared/latest_shoes_widget.dart';
 import '../shared/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,9 +17,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final TabController _tabController =
       TabController(length: 3, vsync: this);
   List<ProductSneakersModel> menSneakersModel = ProductSneakersModel.menSneakersData;
-  List<WomenSneakersModel> womenSneakersModel =
-      WomenSneakersModel.womenSneakersData;
-  List<KidsSneakersModel> kidSneakersModel = KidsSneakersModel.kidsSneakersData;
+  List<ProductSneakersModel> womenSneakersModel = ProductSneakersModel.womenSneakersData;
+  List<ProductSneakersModel> kidSneakersModel = ProductSneakersModel.kidsSneakersData;
   List<LatestShoesModel> latestShoesModel = LatestShoesModel.latestShoesData;
 
   @override
@@ -82,20 +80,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: TabBarView(controller: _tabController, children: [
                   Column(
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        child: ListView.builder(
-                            itemCount: menSneakersModel.length,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child:
-                                    ProductCard(item: menSneakersModel[index]),
-                              );
-                            }),
-                      ),
+                      CommonTabWidget(menSneakersModel: menSneakersModel),
                       Column(
                         children: [
                           Padding(
@@ -126,38 +111,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.13,
-                        child: ListView.builder(
-                            itemCount: latestShoesModel.length,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Colors.white,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black38,
-                                        blurRadius: 0.8,
-                                        spreadRadius: 1,
-                                        offset: Offset(0, 1),
-                                      ),
-                                    ],
-                                  ),
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.12,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.28,
-                                  child: Image.asset(
-                                      latestShoesModel[index].image),
-                                ),
-                              );
-                            }),
-                      ),
+                      LatestShoesWidget(latestShoesModel: latestShoesModel),
                     ],
                   ),
                   Column(
@@ -171,7 +125,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child:
-                                    ProductCard(item: menSneakersModel[index]),
+                                    ProductCard(item: womenSneakersModel[index]),
                               );
                             }),
                       ),
@@ -188,7 +142,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child:
-                                    ProductCard(item: menSneakersModel[index]),
+                                    ProductCard(item: kidSneakersModel[index]),
                               );
                             }),
                       ),
@@ -203,3 +157,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 }
+
+class CommonTabWidget extends StatelessWidget {
+  const CommonTabWidget({
+    super.key,
+    required this.menSneakersModel,
+  });
+
+  final List<ProductSneakersModel> menSneakersModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.405,
+      child: ListView.builder(
+          itemCount: menSneakersModel.length,
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child:
+                  ProductCard(item: menSneakersModel[index]),
+            );
+          }),
+    );
+  }
+}
+
+

@@ -11,8 +11,8 @@ class LatestShoesModel{
 
   static List<LatestShoesModel> latestShoesData = [
     LatestShoesModel(
-      '1',
-      'assets/images/shoes/female_shoe/female_S5.png',
+      '2',
+      'assets/images/shoes/female_shoe/female4.jpg',
       'Puma',
       '\$999',
       "Men's shoes",
@@ -20,8 +20,8 @@ class LatestShoesModel{
       "Adidas Running Shoes With Cooling Ventilations",
     ),
     LatestShoesModel(
-      '1',
-      'assets/images/shoes/female_shoe/female_S7.png',
+      '2',
+      'assets/images/shoes/female_shoe/female7.jpg',
       'Adidas',
       '\$799',
       "Men's shoes",
@@ -48,8 +48,8 @@ class LatestShoesModel{
       "Adidas Running Shoes With Cooling Ventilations",
     ),
     LatestShoesModel(
-      '1',
-      'assets/images/shoes/female_shoe/female_S9.png',
+      '2',
+      'assets/images/shoes/female_shoe/female8.jpg',
       'Fila',
       '\$799',
       "Men's shoes",
@@ -57,8 +57,8 @@ class LatestShoesModel{
       "Adidas Running Shoes With Cooling Ventilations",
     ),
     LatestShoesModel(
-      '1',
-      'assets/images/shoes/kids_shoe/kids_s6.png',
+      '3',
+      'assets/images/shoes/kids_shoe/kid4.jpg',
       'Asics',
       '\$999',
       "Men's shoes",
@@ -67,8 +67,8 @@ class LatestShoesModel{
     ),
 
     LatestShoesModel(
-      '1',
-      'assets/images/shoes/kids_shoe/kids_s2.png',
+      '3',
+      'assets/images/shoes/kids_shoe/kid2.jpg',
       'Converse',
       '\$799',
       'Kids shoes',
@@ -76,8 +76,8 @@ class LatestShoesModel{
       "Adidas Running Shoes With Cooling Ventilations",
     ),
     LatestShoesModel(
-      '1',
-      'assets/images/shoes/kids_shoe/kids_s8.png',
+      '3',
+      'assets/images/shoes/kids_shoe/kid7.jpg',
       'Gucci',
       '\$999',
       'kids shoes',
