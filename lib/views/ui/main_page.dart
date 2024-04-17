@@ -6,7 +6,6 @@ import 'package:flutter_e_commerce_app/views/ui/profile_page.dart';
 import 'package:flutter_e_commerce_app/views/ui/search_page.dart';
 import 'package:provider/provider.dart';
 import '../shared/bottom_nav_bar.dart';
-import '../shared/bottom_nav_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
