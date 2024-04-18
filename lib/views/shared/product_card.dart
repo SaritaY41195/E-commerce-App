@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_commerce_app/providers/cart_provider.dart';
 import 'package:flutter_e_commerce_app/providers/favourite_provider.dart';
 import 'package:flutter_e_commerce_app/views/shared/appStyle.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     final favouriteProvider = Provider.of<FavouriteProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
       child: ClipRRect(
@@ -91,20 +93,41 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                'Colors ',
-                                style:
-                                    appStyle(18, Colors.grey, FontWeight.w500),
+                              TextButton(
+                                child:
+                                cartProvider.cartList.contains(widget.item)
+                              ? Text('Added',style: appStyle(18, Colors.red, FontWeight.w500),)
+                              : Text('Add to cart',style: appStyle(18, Colors.blue, FontWeight.w500),),
+                                onPressed: () {
+                                  if(cartProvider.cartList.contains(widget.item)){
+                                     setState(() {
+                                       cartProvider.cartList.remove(widget.item);
+                                     });
+                                  }
+                                  else{
+                                    setState(() {
+                                      cartProvider.cartList.add(widget.item);
+                                    });
+                                  }
+                                },
                               ),
                               const SizedBox(
                                 width: 5,
                               ),
-                              ChoiceChip(
-                                label: const Text(" "),
-                                selected: selected,
-                                visualDensity: VisualDensity.compact,
-                                selectedColor: Colors.black,
-                              ),
+                              // Text(
+                              //   'Colors ',
+                              //   style:
+                              //       appStyle(18, Colors.grey, FontWeight.w500),
+                              // ),
+                              // const SizedBox(
+                              //   width: 5,
+                              // ),
+                              // ChoiceChip(
+                              //   label: const Text(" "),
+                              //   selected: selected,
+                              //   visualDensity: VisualDensity.compact,
+                              //   selectedColor: Colors.black,
+                              // ),
                             ],
                           ),
                         ],

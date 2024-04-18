@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/models/latest_shoes_model.dart';
 import 'package:flutter_e_commerce_app/models/product_card_model.dart';
 import 'package:flutter_e_commerce_app/views/shared/appStyle.dart';
+import 'package:flutter_e_commerce_app/views/ui/cart_page.dart';
+import 'package:flutter_e_commerce_app/views/ui/favourite_page.dart';
 
+import '../shared/common_tab_widget.dart';
 import '../shared/latest_shoes_widget.dart';
-import '../shared/product_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,9 +19,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final TabController _tabController =
       TabController(length: 3, vsync: this);
-  List<ProductSneakersModel> menSneakersModel = ProductSneakersModel.menSneakersData;
-  List<ProductSneakersModel> womenSneakersModel = ProductSneakersModel.womenSneakersData;
-  List<ProductSneakersModel> kidSneakersModel = ProductSneakersModel.kidsSneakersData;
+  List<ProductSneakersModel> menSneakersModel =
+      ProductSneakersModel.menSneakersData;
+  List<ProductSneakersModel> womenSneakersModel =
+      ProductSneakersModel.womenSneakersData;
+  List<ProductSneakersModel> kidSneakersModel =
+      ProductSneakersModel.kidsSneakersData;
   List<LatestShoesModel> latestShoesModel = LatestShoesModel.latestShoesData;
 
   @override
@@ -27,8 +33,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       backgroundColor: Colors.grey.shade200,
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child:
-        Stack(
+        child: Stack(
           children: [
             Container(
               padding: const EdgeInsets.fromLTRB(16, 45, 0, 0),
@@ -80,75 +85,71 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: TabBarView(controller: _tabController, children: [
                   Column(
                     children: [
-                      CommonTabWidget(menSneakersModel: menSneakersModel),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 20, 12, 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Latest  Shoes",
-                                  style: appStyle(
-                                      24, Colors.black, FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Show All",
-                                      style: appStyle(
-                                          22, Colors.black, FontWeight.normal),
-                                    ),
-                                    const Icon(
-                                      Icons.arrow_circle_right,
-                                      size: 20,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      LatestShoesWidget(latestShoesModel: latestShoesModel),
+                      CommonTabWidget(sneakersModel: menSneakersModel),
                     ],
                   ),
                   Column(
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        child: ListView.builder(
-                            itemCount: womenSneakersModel.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child:
-                                    ProductCard(item: womenSneakersModel[index]),
-                              );
-                            }),
-                      ),
+                      CommonTabWidget(sneakersModel: womenSneakersModel),
                     ],
                   ),
                   Column(
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        child: ListView.builder(
-                            itemCount: kidSneakersModel.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child:
-                                    ProductCard(item: kidSneakersModel[index]),
-                              );
-                            }),
-                      ),
+                      CommonTabWidget(sneakersModel: kidSneakersModel),
                     ],
                   ),
                 ]),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.65),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 20, 12, 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Latest  Shoes",
+                          style: appStyle(24, Colors.black, FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Show All",
+                              style:
+                                  appStyle(22, Colors.black, FontWeight.normal),
+                            ),
+                            const Icon(
+                              Icons.arrow_circle_right,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.74),
+              child: LatestShoesWidget(latestShoesModel: latestShoesModel),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.9),
+              child: CommonButton(
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height * 0.065,
+                title: 'Go to Cart',
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const FavouritePage()));
+                },
               ),
             ),
           ],
@@ -157,32 +158,3 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 }
-
-class CommonTabWidget extends StatelessWidget {
-  const CommonTabWidget({
-    super.key,
-    required this.menSneakersModel,
-  });
-
-  final List<ProductSneakersModel> menSneakersModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.405,
-      child: ListView.builder(
-          itemCount: menSneakersModel.length,
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child:
-                  ProductCard(item: menSneakersModel[index]),
-            );
-          }),
-    );
-  }
-}
-
-

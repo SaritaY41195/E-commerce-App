@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 
 import 'login_page.dart';
@@ -12,7 +13,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -96,9 +96,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ]),
               ),
+              const SizedBox(
+                height: 15,
+              ),
               Padding(
-                padding: const EdgeInsets.only(
-                    top: 10.0, left: 30.0, right: 30.0, bottom: 30.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -116,20 +118,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ]),
                         child: Column(
                           children: <Widget>[
-                            FadeInDown(duration: const Duration(milliseconds: 1800),
+                            FadeInDown(
+                              duration: const Duration(milliseconds: 1800),
                               child: Container(
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(
+                                  border: Border(
+                                      bottom: BorderSide(
                                     color: Colors.grey.shade100,
-                                  )
-                                  ),
+                                  )),
                                 ),
                                 child: TextFormField(
                                   controller: emailController,
                                   keyboardType: TextInputType.name,
-                                  validator: (value){
-                                    if(value!.isEmpty){
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
                                       return 'Enter email';
                                     }
                                   },
@@ -148,23 +151,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 decoration: BoxDecoration(
                                   border: Border(
                                       bottom: BorderSide(
-                                        color: Colors.grey.shade100,
-                                      )),
+                                    color: Colors.grey.shade100,
+                                  )),
                                 ),
                               ),
                             ),
-                            FadeInDown( duration: const Duration(milliseconds: 2000),
+                            FadeInDown(
+                              duration: const Duration(milliseconds: 2000),
                               child: Container(
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(
+                                  border: Border(
+                                      bottom: BorderSide(
                                     color: Colors.grey.shade100,
-                                  )
-                                  ),
+                                  )),
                                 ),
                                 child: TextFormField(
                                   validator: (value) {
-                                    if(value != null && value == 6){
+                                    if (value != null && value == 6) {
                                       return "Please enter password should be length of 6";
                                     }
                                   },
@@ -183,33 +187,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             FadeInDown(
                               duration: const Duration(milliseconds: 2100),
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: const LinearGradient(colors: [
-                                      Color.fromRGBO(34, 34, 49, 1.0),
-                                      Color.fromRGBO(117, 118, 140, 0.6),
-                                    ])),
-                                child: Center(
-                                  child: InkWell(
-                                    onTap: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        String email = emailController.text.trim();
-                                        String pwd = pwdController.text.trim();
-                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Click to signUp button")));
-                                        // FirebaseAuthentication.registerUser(email, pwd);
-                                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-                                      }
-                                    },
-                                    child: const Text(
-                                      "Signup",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
+                              child: CommonButton(
+                                width: MediaQuery.sizeOf(context).width,
+                                height: MediaQuery.sizeOf(context).height*0.065,
+                                title: 'Signup',
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    String email = emailController.text.trim();
+                                    String pwd = pwdController.text.trim();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "Click to signUp button")));
+                                    // FirebaseAuthentication.registerUser(email, pwd);
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomePage()));
+                                  }
+                                },
                               ),
                             ),
                             const SizedBox(
@@ -223,21 +219,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     child: const Text(
                                       "Forgot Password",
                                       style: TextStyle(
-                                          color:
-                                          Color.fromRGBO(34, 34, 49, 1.0),),
+                                        color: Color.fromRGBO(34, 34, 49, 1.0),
+                                      ),
                                     )),
                                 TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                              const LoginScreen()));
+                                                  const LoginScreen()));
                                     },
                                     child: const Text(
                                       "Already have an account?",
                                       style: TextStyle(
-                                          color:
-                                          Color.fromRGBO(34, 34, 49, 1.0),),
+                                        color: Color.fromRGBO(34, 34, 49, 1.0),
+                                      ),
                                     )),
                               ],
                             ),

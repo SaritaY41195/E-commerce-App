@@ -1,10 +1,9 @@
-import 'models/product_card_model.dart';
+import '../models/product_card_model.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider extends ChangeNotifier{
   final List<ProductSneakersModel> _cartList =[];
   List<ProductSneakersModel> get cartList => _cartList;
-
 
   incrementQty(int index){
     _cartList[index].quantity++;

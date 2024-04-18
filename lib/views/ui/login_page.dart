@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/views/ui/signup_page.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -168,38 +169,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             const SizedBox(
-                              height: 30,
+                              height: 50,
                             ),
                             FadeInDown(
                               duration: const Duration(milliseconds: 2000),
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: const LinearGradient(colors: [
-                                      Color.fromRGBO(34, 34, 49, 1.0),
-                                      Color.fromRGBO(117, 118, 140, 0.6),
-                                    ])),
-                                child: Center(
-                                  child: InkWell(
-                                    onTap: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        String email =
-                                        emailController.text.trim();
-                                        String pwd = pwdController.text.trim();
-                                        // FirebaseAuthentication.signInUser(email, pwd);
-                                        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomeScreen()));
-                                      }
-                                    },
-                                    child: const Text(
-                                      "Login",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              child: CommonButton(
+                                height: MediaQuery.sizeOf(context).height*0.065,
+                                width: MediaQuery.sizeOf(context).width,
+                                title: 'Login', onTap: (){
+                                if (_formKey.currentState!.validate()) {
+                                  String email =
+                                  emailController.text.trim();
+                                  String pwd = pwdController.text.trim();
+                                  // FirebaseAuthentication.signInUser(email, pwd);
+                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomeScreen()));
+                                }
+                              },),
                             ),
                             const SizedBox(
                               height: 10,

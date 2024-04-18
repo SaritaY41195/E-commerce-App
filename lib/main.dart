@@ -3,9 +3,10 @@ import 'package:flutter_e_commerce_app/providers/favourite_provider.dart';
 import 'package:flutter_e_commerce_app/providers/main_screen_provider.dart';
 import 'package:flutter_e_commerce_app/providers/tab_provider.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
+import 'package:flutter_e_commerce_app/views/ui/login_page.dart';
 import 'package:provider/provider.dart';
 
-import 'cart_provider.dart';
+import 'providers/cart_provider.dart';
 
 void main() {
   runApp(MultiProvider(
