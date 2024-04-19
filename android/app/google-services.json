@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "79155809733",
+    "project_id": "e-commerce-shoes-app",
+    "storage_bucket": "e-commerce-shoes-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79155809733:android:959f857e8eec37c01f8fac",
+        "android_client_info": {
+          "package_name": "com.example.flutter_e_commerce_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOxHcSPEaCv_gv_gMAEgypm7HeKLeZVxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

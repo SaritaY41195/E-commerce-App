@@ -11,6 +11,7 @@ class FavouritePage extends StatefulWidget {
 }
 
 class _FavouritePageState extends State<FavouritePage> {
+
   @override
   Widget build(BuildContext context) {
     final favouriteProvider = Provider.of<FavouriteProvider>(context);
@@ -22,33 +23,42 @@ class _FavouritePageState extends State<FavouritePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // CommonButton(height: MediaQuery.sizeOf(context).height*0.07,title: 'Favourite', onTap: (){}),
-          Flexible(
+          favouriteProvider.favouriteList.isEmpty
+              ? const Center(
+            child: Text(
+              'Add to favourites',
+              style: TextStyle(color: Colors.blue),
+            ),
+          )
+              : Flexible(
             child: ListView.builder(
                 itemCount: favouriteProvider.favouriteList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  var FavouriteItem = favouriteProvider.favouriteList[index];
+                  var cartItem = favouriteProvider.favouriteList[index];
                   return Column(
                     children: [
                       Card(
                         child: ListTile(
-                          title: Text(FavouriteItem.name),
-                          subtitle: Text(FavouriteItem.description),
+                          title: Text(cartItem.name),
+                          subtitle: Text(cartItem.description),
                           leading: Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            width: MediaQuery.of(context).size.width * 0.2,
+                            height:
+                            MediaQuery.of(context).size.height * 0.2,
+                            width:
+                            MediaQuery.of(context).size.width * 0.2,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(FavouriteItem.image),
+                                image: AssetImage(cartItem.image),
                                 fit: BoxFit.contain,
                               ),
                             ),
                           ),
                           trailing: Column(
                             children: [
-                              Text('\u{20B9}${FavouriteItem.price.toString()}'),
-                              // getIncreDecreWidget(FavouriteItem.quantity),
+                              Text(
+                                  '\u{20B9}${cartItem.price.toString()}'),
+                              // getIncreDecreWidget(cartItem.quantity),
                             ],
                           ),
                         ),

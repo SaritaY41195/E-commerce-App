@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 
+import '../../auth/firebase_auth.dart';
 import 'login_page.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -138,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "Name",
+                                    hintText: "Email",
                                     hintStyle: TextStyle(color: Colors.grey),
                                   ),
                                 ),
@@ -172,6 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       return "Please enter password should be length of 6";
                                     }
                                   },
+                                  obscureText: true,
                                   controller: pwdController,
                                   keyboardType: TextInputType.visiblePassword,
                                   decoration: const InputDecoration(
@@ -199,7 +201,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         const SnackBar(
                                             content: Text(
                                                 "Click to signUp button")));
-                                    // FirebaseAuthentication.registerUser(email, pwd);
+                                    FirebaseAuthentication.registerUser(email, pwd);
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) =>

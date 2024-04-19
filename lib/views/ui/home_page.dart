@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_commerce_app/auth/firebase_auth.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/models/latest_shoes_model.dart';
 import 'package:flutter_e_commerce_app/models/product_card_model.dart';
 import 'package:flutter_e_commerce_app/views/shared/appStyle.dart';
 import 'package:flutter_e_commerce_app/views/ui/cart_page.dart';
 import 'package:flutter_e_commerce_app/views/ui/favourite_page.dart';
+import 'package:flutter_e_commerce_app/views/ui/login_page.dart';
 
 import '../shared/common_tab_widget.dart';
 import '../shared/latest_shoes_widget.dart';
@@ -50,9 +52,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Athletics Shoes',
-                      style: appStyleHL(42, Colors.white, FontWeight.bold, 1.5),
+                    Row(
+                      children: [
+                        Text(
+                          'Athletics Shoes',
+                          style: appStyleHL(42, Colors.white, FontWeight.bold, 1.5),
+                        ),
+                        IconButton(onPressed: (){
+                          FirebaseAuthentication.signout();
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
+                        }, icon: const Icon(Icons.arrow_forward,size: 35, color: Colors.white,)),
+                      ],
                     ),
                     Text(
                       'Collection',
@@ -147,8 +157,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 height: MediaQuery.sizeOf(context).height * 0.065,
                 title: 'Go to Cart',
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const FavouritePage()));
+                  Navigator.push(context,MaterialPageRoute(
+                      builder: (context) => const CartPage()));
                 },
               ),
             ),

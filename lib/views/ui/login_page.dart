@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
+import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 import 'package:flutter_e_commerce_app/views/ui/signup_page.dart';
+
+import '../../auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -154,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 child: TextFormField(
                                   controller: pwdController,
+                                  obscureText: true,
                                   validator: (value){
                                     if(value!.isEmpty && value.length <= 6){
                                       return 'Add password';
@@ -181,8 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   String email =
                                   emailController.text.trim();
                                   String pwd = pwdController.text.trim();
-                                  // FirebaseAuthentication.signInUser(email, pwd);
-                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomeScreen()));
+                                  FirebaseAuthentication.signInUser(email, pwd);
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                                 }
                               },),
                             ),
