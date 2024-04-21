@@ -30,7 +30,7 @@ class ProductSneakersModel {
       "Men's shoes",
       "Put some pep in your step with the adidas",
       "Adidas Running Shoes With Cooling Ventilations",
-      2,
+      1,
     ),
     ProductSneakersModel(
         '1',
@@ -49,7 +49,7 @@ class ProductSneakersModel {
         "Men's shoes",
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilations",
-        2),
+        1),
     ProductSneakersModel(
         '1',
         'assets/images/shoes/male_shoe/shoes7.png',
@@ -67,7 +67,7 @@ class ProductSneakersModel {
         "Men's shoes",
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilations",
-        2),
+        1),
     ProductSneakersModel(
         '1',
         'assets/images/shoes/male_shoe/shoes3.png',
@@ -85,7 +85,7 @@ class ProductSneakersModel {
         "Men's shoes",
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilations",
-        2),
+        1),
     ProductSneakersModel(
         '1',
         'assets/images/shoes/male_shoe/shoes3.png',
@@ -197,7 +197,7 @@ class ProductSneakersModel {
         'Kids shoes',
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilations",
-        2),
+        1),
     ProductSneakersModel(
         '3',
         'assets/images/shoes/kids_shoe/kid2.jpg',
@@ -224,7 +224,7 @@ class ProductSneakersModel {
         'Kids shoes',
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilations",
-        2),
+        1),
     ProductSneakersModel(
         '3',
         'assets/images/shoes/kids_shoe/kid1.jpg',
@@ -242,7 +242,7 @@ class ProductSneakersModel {
         'Kids shoes',
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilation's",
-        2),
+        1),
     ProductSneakersModel(
         '3',
         'assets/images/shoes/kids_shoe/kid7.jpg',
@@ -269,6 +269,6 @@ class ProductSneakersModel {
         'Kids shoes',
         "Put some pep in your step with the adidas",
         "Adidas Running Shoes With Cooling Ventilation's",
-        2),
+        1),
   ];
 }

@@ -5,11 +5,11 @@ import 'package:flutter_e_commerce_app/models/latest_shoes_model.dart';
 import 'package:flutter_e_commerce_app/models/product_card_model.dart';
 import 'package:flutter_e_commerce_app/views/shared/appStyle.dart';
 import 'package:flutter_e_commerce_app/views/ui/cart_page.dart';
-import 'package:flutter_e_commerce_app/views/ui/favourite_page.dart';
 import 'package:flutter_e_commerce_app/views/ui/login_page.dart';
 
 import '../shared/common_tab_widget.dart';
 import '../shared/latest_shoes_widget.dart';
+import 'favourite_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,6 +33,62 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 25),
+        child: CircleAvatar(
+          radius: 25.0,
+          child: InkWell(
+            onTap: (){
+               showAdaptiveDialog(context: context, builder: (context){
+                 return Padding(
+                   padding: const EdgeInsets.only(left: 80.0),
+                   child: Drawer(
+                     backgroundColor: Colors.black26,
+                     child: ListView(
+                       children:  [
+                         const DrawerHeader(child: Text('Hello', style: TextStyle(color: Colors.white),)),
+                         ListTile(
+                           title: const Text('Item 1',style: TextStyle(color: Colors.white),),
+                           onTap: () {
+
+                           },
+                         ),
+                         ListTile(
+                           title: const Text('Item 2',style: TextStyle(color: Colors.white),),
+                           onTap: () {
+
+                           },
+                         ),
+                       ],
+                     ),
+                   ),
+                 );
+               });
+            },
+            // child: Drawer(
+            //   backgroundColor: Colors.white,
+            //   child: ListView(
+            //     children:  [
+            //       const DrawerHeader(child: Text('Hello')),
+            //       ListTile(
+            //         title: const Text('Item 1'),
+            //         onTap: () {
+            //
+            //         },
+            //       ),
+            //       ListTile(
+            //         title: const Text('Item 2'),
+            //         onTap: () {
+            //
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -56,12 +112,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       children: [
                         Text(
                           'Athletics Shoes',
-                          style: appStyleHL(42, Colors.white, FontWeight.bold, 1.5),
+                          style: appStyleHL(38, Colors.white, FontWeight.bold, 1.5),
                         ),
-                        IconButton(onPressed: (){
-                          FirebaseAuthentication.signout();
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
-                        }, icon: const Icon(Icons.arrow_forward,size: 35, color: Colors.white,)),
+                        const SizedBox(width: 25,),
+                        // IconButton(onPressed: (){
+                        //   FirebaseAuthentication.signout();
+                        //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
+                        // }, icon: const Icon(Icons.arrow_forward,size: 35, color: Colors.white,)),
                       ],
                     ),
                     Text(
@@ -111,9 +168,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ]),
               ),
             ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //       top: MediaQuery.of(context).size.height * 0.65),
+            //   child: TextButton(onPressed: (){
+            //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FavouritePage()));
+            //   },
+            //       child: const Text('My favorites', style: TextStyle(fontSize: 18, color: Colors.blue),)),
+            // ),
             Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.65),
+                  top: MediaQuery.of(context).size.height * 0.68),
               child: Column(
                 children: [
                   Padding(
@@ -146,9 +211,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.74),
+                  top: MediaQuery.of(context).size.height * 0.75),
               child: LatestShoesWidget(latestShoesModel: latestShoesModel),
             ),
+
             Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.9),
@@ -157,8 +223,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 height: MediaQuery.sizeOf(context).height * 0.065,
                 title: 'Go to Cart',
                 onTap: () {
-                  Navigator.push(context,MaterialPageRoute(
-                      builder: (context) => const CartPage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartPage()));
                 },
               ),
             ),

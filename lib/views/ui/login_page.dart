@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 child: TextFormField(
                                   controller: emailController,
-                                  keyboardType: TextInputType.phone,
+                                  keyboardType: TextInputType.emailAddress,
                                   validator: (value){
                                     if(value!.isEmpty){
                                       return 'Enter email';

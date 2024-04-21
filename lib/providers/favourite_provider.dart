@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/product_card_model.dart';
 
 
-class FavouriteProvider extends ChangeNotifier{
+class FavProvider extends ChangeNotifier{
   final List<ProductSneakersModel> _favouriteList = [];
   List<ProductSneakersModel> get favouriteList => _favouriteList;
 
@@ -19,6 +19,4 @@ class FavouriteProvider extends ChangeNotifier{
     final isExist = _favouriteList.contains(productSneakersModel);
     return isExist;
   }
-
-
 }

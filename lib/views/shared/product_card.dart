@@ -17,7 +17,7 @@ class _ProductCardState extends State<ProductCard> {
   bool selected = true;
   @override
   Widget build(BuildContext context) {
-    final favouriteProvider = Provider.of<FavouriteProvider>(context);
+    final favouriteProvider = Provider.of<FavProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
@@ -54,15 +54,17 @@ class _ProductCardState extends State<ProductCard> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              favouriteProvider.toggelFavourite(widget.item);
+                             favouriteProvider.toggelFavourite(widget.item);
                             });
                           },
-                          child: favouriteProvider.isExist(widget.item)
+                          child:
+                          favouriteProvider.isExist(widget.item)
                               ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
                                 )
-                              : const Icon(Icons.favorite_outline),
+                              :
+                          const Icon(Icons.favorite_outline),
                         )),
                   ],
                 ),
