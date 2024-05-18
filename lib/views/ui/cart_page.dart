@@ -136,60 +136,54 @@ class _CartPageState extends State<CartPage> {
                                       '\u{20B9}${cartItem.price.toString()}',
                                       style: const TextStyle(fontSize: 22),
                                     ),
-                                    Row(
-                                      textDirection: TextDirection.ltr,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CommonContainer(
-                                          height: 20,
-                                          width: 30,
-                                          onTap: () {
-                                            cartProvider.incrementQty(
-                                                cartItem.quantity);
-                                          },
-                                          child: const Center(
-                                            child: Text(
-                                              '-',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.blue,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                                    Expanded(
+                                      child: Row(
+                                        textDirection: TextDirection.ltr,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              print(
+                                                cartProvider.decrementQty(
+                                                    cartItem.quantity),
+                                              );
+                                            },
+                                            icon: const Icon(Icons.remove),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          cartItem.quantity.toString(),
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        CommonContainer(
-                                          height: 20,
-                                          width: 30,
-                                          onTap: () {},
-                                          child: const Center(
-                                              child: Text(
-                                            '+',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.blue),
-                                          )),
-                                        ),
-                                      ],
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            cartItem.quantity.toString(),
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              print(
+                                                cartProvider.incrementQty(
+                                                    cartItem.quantity),
+                                              );
+                                            },
+                                            icon: const Icon(Icons.add),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            Container(color: Colors.grey.shade50,child: TextButton(onPressed: (){
-                              cartProvider.removeCartData(cartItem);
-                            }, child: Text('Remove'))),
+                            Container(
+                                color: Colors.grey.shade50,
+                                child: TextButton(
+                                    onPressed: () {
+                                      cartProvider.removeCartData(cartItem);
+                                    },
+                                    child: Text('Remove'))),
                           ],
                         );
                       }),
