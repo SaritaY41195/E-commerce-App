@@ -28,7 +28,10 @@ class CartProvider extends ChangeNotifier{
     return total1;
   }
 
-  clearList(){
-    _cartList.clear();
+  removeCartData(ProductSneakersModel productSneakersModel){
+    if(_cartList.contains(productSneakersModel)){
+      _cartList.remove(productSneakersModel);
+    }
+    notifyListeners();
   }
 }

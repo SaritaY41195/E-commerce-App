@@ -29,4 +29,10 @@ class FavProvider extends ChangeNotifier{
     productSneakersModel.quantity--;
     notifyListeners();
   }
+  void removeFavourite(ProductSneakersModel productSneakersModel){
+    if(_favouriteList.contains(productSneakersModel)){
+      _favouriteList.remove(productSneakersModel);
+    }
+    notifyListeners();
+  }
 }

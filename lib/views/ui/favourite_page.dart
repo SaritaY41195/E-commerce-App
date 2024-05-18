@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_e_commerce_app/common/commomnContainer.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +91,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                               style: const TextStyle(fontSize: 16),
                                             ),
                                             TextButton(onPressed: (){
-                                              // favouriteProvider.toggelFavourite(favouriteItem.id);
+                                                favouriteProvider.removeFavourite(favouriteItem);
                                             }, child: const Text('Remove')),
                                           ],
                                         ),

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class CommonContainer extends StatefulWidget {
   final double height;
   final double width;
-  final Color color;
+  final Color? color;
   final Widget child;
   final Function onTap;
   const CommonContainer(
       {super.key,
       required this.height,
       required this.width,
-      required this.color,
+       this.color,
       required this.child, required this.onTap});
 
   @override

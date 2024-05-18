@@ -5,6 +5,7 @@ import 'package:flutter_e_commerce_app/providers/cart_provider.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import '../../common/commomnContainer.dart';
 import '../../common/constant.dart';
 import 'favourite_page.dart';
 
@@ -56,37 +57,38 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
             CommonButton(
-                height: MediaQuery.sizeOf(context).height * 0.08,
-                width: MediaQuery.sizeOf(context).width * 0.4,
-                title: 'Invoice',
-                onTap: () {
-                  var options = {
-                    'key': RAZOR_PAY_KEY,
-                    'amount': cartProvider.totalPrice().toStringAsFixed(2),
-                    'name': RAZOR_PAY_APP_NAME,
-                    'description': RAZOR_PAY_DESCRIPTION,
-                    'timeOut': RAZOR_PAY_TIMEOUT,
-                    'retry': {'enabled': true, 'max_count': 1},
-                    'send_sms_hash': true,
-                    'prefill': {
-                      'contact': FirebaseAuth.instance.currentUser!.phoneNumber,
-                      'email': FirebaseAuth.instance.currentUser!.email,
-                    },
-                    'external': {
-                      'wallets': ['paytm']
-                    }
-                  };
-                  _razorPay.on(
-                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-                  _razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                      handlePaymentSuccessResponse);
-                  _razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                      handleExternalWalletSelected);
+              height: MediaQuery.sizeOf(context).height * 0.08,
+              width: MediaQuery.sizeOf(context).width * 0.4,
+              title: 'Invoice',
+              onTap: () {
+                var options = {
+                  'key': RAZOR_PAY_KEY,
+                  'amount': cartProvider.totalPrice().toStringAsFixed(2),
+                  'name': RAZOR_PAY_APP_NAME,
+                  'description': RAZOR_PAY_DESCRIPTION,
+                  'timeOut': RAZOR_PAY_TIMEOUT,
+                  'retry': {'enabled': true, 'max_count': 1},
+                  'send_sms_hash': true,
+                  'prefill': {
+                    'contact': FirebaseAuth.instance.currentUser!.phoneNumber,
+                    'email': FirebaseAuth.instance.currentUser!.email,
+                  },
+                  'external': {
+                    'wallets': ['paytm']
+                  }
+                };
+                _razorPay.on(
+                    Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                _razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                    handlePaymentSuccessResponse);
+                _razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                    handleExternalWalletSelected);
 
-                  _razorPay.open(options);
-                  _razorPay.clear();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
-                },
+                _razorPay.open(options);
+                _razorPay.clear();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+              },
             ),
           ],
         ),
@@ -104,8 +106,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                 )
               : Flexible(
-                  child:
-                  ListView.builder(
+                  child: ListView.builder(
                       itemCount: cartProvider.cartList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -135,42 +136,64 @@ class _CartPageState extends State<CartPage> {
                                       '\u{20B9}${cartItem.price.toString()}',
                                       style: const TextStyle(fontSize: 22),
                                     ),
-                                    // Row(
-                                    //   textDirection: TextDirection.ltr,
-                                    //   mainAxisSize: MainAxisSize.min,
-                                    //   children: [
-                                    //      CommonContainer(height: 20, width: 30, color: Colors.black38,
-                                    //        onTap: (){
-                                    //         cartProvider.incrementQty();
-                                    //        },
-                                    //      child: const Center(
-                                    //         child:  Text(
-                                    //           '-',textAlign: TextAlign.center,
-                                    //           style: TextStyle(fontSize: 20, color: Colors.white),
-                                    //         ),
-                                    //     ),),
-                                    //     const SizedBox(width: 5,),
-                                    //     Text(cartItem.quantity.toString(), style: const TextStyle(fontSize: 16),),
-                                    //     const SizedBox(width: 5,),
-                                    //    CommonContainer(height: 20, width: 30, color: Colors.black38, onTap: (){},
-                                    //    child: const Center(
-                                    //         child:  Text(
-                                    //           '+',textAlign: TextAlign.center,
-                                    //           style: TextStyle(fontSize: 20, color: Colors.white),
-                                    //         )),),
-                                    //   ],
-                                    // ),
+                                    Row(
+                                      textDirection: TextDirection.ltr,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CommonContainer(
+                                          height: 20,
+                                          width: 30,
+                                          onTap: () {
+                                            cartProvider.incrementQty(
+                                                cartItem.quantity);
+                                          },
+                                          child: const Center(
+                                            child: Text(
+                                              '-',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          cartItem.quantity.toString(),
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        CommonContainer(
+                                          height: 20,
+                                          width: 30,
+                                          onTap: () {},
+                                          child: const Center(
+                                              child: Text(
+                                            '+',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.blue),
+                                          )),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
+                            Container(color: Colors.grey.shade50,child: TextButton(onPressed: (){
+                              cartProvider.removeCartData(cartItem);
+                            }, child: Text('Remove'))),
                           ],
                         );
                       }),
                 ),
-          Column(
-            children: [],
-          ),
         ],
       ),
     );
@@ -183,7 +206,8 @@ class _CartPageState extends State<CartPage> {
 
   void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
     print(response.data.toString());
-    showAlertDialog(context, "Payment Successful", "Payment Id: ${response.paymentId}");
+    showAlertDialog(
+        context, "Payment Successful", "Payment Id: ${response.paymentId}");
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {
