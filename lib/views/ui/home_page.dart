@@ -1,12 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_e_commerce_app/auth/firebase_auth.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/models/latest_shoes_model.dart';
 import 'package:flutter_e_commerce_app/models/product_card_model.dart';
 import 'package:flutter_e_commerce_app/views/shared/appStyle.dart';
 import 'package:flutter_e_commerce_app/views/ui/cart_page.dart';
 import 'package:flutter_e_commerce_app/views/ui/login_page.dart';
+import 'package:flutter_e_commerce_app/views/ui/profile_page.dart';
 
+import '../../services/auth/firebase_auth.dart';
 import '../shared/common_tab_widget.dart';
 import '../shared/latest_shoes_widget.dart';
 import 'favourite_page.dart';
@@ -36,55 +38,80 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25),
         child: CircleAvatar(
-          radius: 25.0,
-          child: InkWell(
-            onTap: (){
-               showAdaptiveDialog(context: context, builder: (context){
-                 return Padding(
-                   padding: const EdgeInsets.only(left: 80.0),
-                   child: Drawer(
-                     backgroundColor: Colors.black26,
-                     child: ListView(
-                       children:  [
-                         const DrawerHeader(child: Text('Hello', style: TextStyle(color: Colors.white),)),
-                         ListTile(
-                           title: const Text('Item 1',style: TextStyle(color: Colors.white),),
-                           onTap: () {
-
-                           },
-                         ),
-                         ListTile(
-                           title: const Text('Item 2',style: TextStyle(color: Colors.white),),
-                           onTap: () {
-
-                           },
-                         ),
-                       ],
-                     ),
-                   ),
-                 );
-               });
-            },
-            // child: Drawer(
-            //   backgroundColor: Colors.white,
-            //   child: ListView(
-            //     children:  [
-            //       const DrawerHeader(child: Text('Hello')),
-            //       ListTile(
-            //         title: const Text('Item 1'),
-            //         onTap: () {
-            //
-            //         },
-            //       ),
-            //       ListTile(
-            //         title: const Text('Item 2'),
-            //         onTap: () {
-            //
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
+          radius: 22.0,
+          backgroundColor: Colors.black54,
+          child: IconButton(
+            icon: const Icon(Icons.person, color: Colors.white,size: 30,),
+            onPressed: () { showAdaptiveDialog(
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 120.0),
+                    child: Drawer(
+                      backgroundColor: Colors.black26,
+                      child: ListView(
+                        children: [
+                          DrawerHeader(
+                              child: Center(
+                                  child: Text(
+                                    '${FirebaseAuth.instance.currentUser!.email}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w600),
+                                  ))),
+                          ListTile(
+                            title: const Text(
+                              'My Favourites',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            onTap: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const FavouritePage()));
+                            },
+                          ),
+                          ListTile(
+                            title: const Text(
+                              'Profile',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            onTap: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  ProfileScreen()));
+                            },
+                          ),
+                          ListTile(
+                            title: const Text(
+                              'About',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            onTap: () {},
+                          ),
+                          ListTile(
+                            title: const Text(
+                              'Sign Out',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            onTap: () {
+                              FirebaseAuthentication.signout();
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }); },
           ),
         ),
       ),
@@ -112,9 +139,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       children: [
                         Text(
                           'Athletics Shoes',
-                          style: appStyleHL(38, Colors.white, FontWeight.bold, 1.5),
+                          style: appStyleHL(
+                              38, Colors.white, FontWeight.bold, 1.5),
                         ),
-                        const SizedBox(width: 25,),
+                        const SizedBox(
+                          width: 25,
+                        ),
                         // IconButton(onPressed: (){
                         //   FirebaseAuthentication.signout();
                         //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
@@ -168,14 +198,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ]),
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //       top: MediaQuery.of(context).size.height * 0.65),
-            //   child: TextButton(onPressed: (){
-            //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FavouritePage()));
-            //   },
-            //       child: const Text('My favorites', style: TextStyle(fontSize: 18, color: Colors.blue),)),
-            // ),
             Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.68),
@@ -223,7 +245,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 height: MediaQuery.sizeOf(context).height * 0.065,
                 title: 'Go to Cart',
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CartPage()));
                 },
               ),
             ),

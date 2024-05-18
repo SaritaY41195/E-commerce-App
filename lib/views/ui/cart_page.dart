@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/providers/cart_provider.dart';
+import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import '../../common/constant.dart';
 import 'favourite_page.dart';
 
 class CartPage extends StatefulWidget {
@@ -12,6 +16,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  Razorpay _razorPay = Razorpay();
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -20,12 +25,18 @@ class _CartPageState extends State<CartPage> {
         title: const Text('Cart'),
         backgroundColor: const Color.fromRGBO(117, 118, 140, 0.6),
         actions: [
-          TextButton(onPressed: (){
-            Navigator.push( context,
-                MaterialPageRoute(builder: (context) => const FavouritePage()),
-            );
-          },
-             child: const Text('My favorites', style: TextStyle(fontSize: 18, color: Colors.black),)),
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FavouritePage()),
+                );
+              },
+              child: const Text(
+                'My favorites',
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              )),
         ],
       ),
       floatingActionButton: Padding(
@@ -45,13 +56,38 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
             CommonButton(
-                height: MediaQuery.sizeOf(context).height*0.08,
-                width: MediaQuery.sizeOf(context).width*0.4,
+                height: MediaQuery.sizeOf(context).height * 0.08,
+                width: MediaQuery.sizeOf(context).width * 0.4,
                 title: 'Invoice',
                 onTap: () {
-                  // Navigator.pushReplacement(context,
-                  //     MaterialPageRoute(builder: (context) => const HomePage()));
-                }),
+                  var options = {
+                    'key': RAZOR_PAY_KEY,
+                    'amount': cartProvider.totalPrice().toStringAsFixed(2),
+                    'name': RAZOR_PAY_APP_NAME,
+                    'description': RAZOR_PAY_DESCRIPTION,
+                    'timeOut': RAZOR_PAY_TIMEOUT,
+                    'retry': {'enabled': true, 'max_count': 1},
+                    'send_sms_hash': true,
+                    'prefill': {
+                      'contact': FirebaseAuth.instance.currentUser!.phoneNumber,
+                      'email': FirebaseAuth.instance.currentUser!.email,
+                    },
+                    'external': {
+                      'wallets': ['paytm']
+                    }
+                  };
+                  _razorPay.on(
+                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                  _razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                      handlePaymentSuccessResponse);
+                  _razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                      handleExternalWalletSelected);
+
+                  _razorPay.open(options);
+                  _razorPay.clear();
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                },
+            ),
           ],
         ),
       ),
@@ -62,13 +98,14 @@ class _CartPageState extends State<CartPage> {
         children: [
           cartProvider.cartList.isEmpty
               ? const Center(
-                child: Text(
+                  child: Text(
                     'Add To items',
                     style: TextStyle(color: Colors.blue),
                   ),
-              )
+                )
               : Flexible(
-                  child: ListView.builder(
+                  child:
+                  ListView.builder(
                       itemCount: cartProvider.cartList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -92,10 +129,37 @@ class _CartPageState extends State<CartPage> {
                                   ),
                                 ),
                                 trailing: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                        '\u{20B9}${cartItem.price.toString()}',style: const TextStyle(fontSize: 22),),
-                                    // getIncreDecreWidget(cartItem.quantity),
+                                      '\u{20B9}${cartItem.price.toString()}',
+                                      style: const TextStyle(fontSize: 22),
+                                    ),
+                                    // Row(
+                                    //   textDirection: TextDirection.ltr,
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    //   children: [
+                                    //      CommonContainer(height: 20, width: 30, color: Colors.black38,
+                                    //        onTap: (){
+                                    //         cartProvider.incrementQty();
+                                    //        },
+                                    //      child: const Center(
+                                    //         child:  Text(
+                                    //           '-',textAlign: TextAlign.center,
+                                    //           style: TextStyle(fontSize: 20, color: Colors.white),
+                                    //         ),
+                                    //     ),),
+                                    //     const SizedBox(width: 5,),
+                                    //     Text(cartItem.quantity.toString(), style: const TextStyle(fontSize: 16),),
+                                    //     const SizedBox(width: 5,),
+                                    //    CommonContainer(height: 20, width: 30, color: Colors.black38, onTap: (){},
+                                    //    child: const Center(
+                                    //         child:  Text(
+                                    //           '+',textAlign: TextAlign.center,
+                                    //           style: TextStyle(fontSize: 20, color: Colors.white),
+                                    //         )),),
+                                    //   ],
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -105,16 +169,43 @@ class _CartPageState extends State<CartPage> {
                       }),
                 ),
           Column(
-            children: [
-
-            ],
+            children: [],
           ),
         ],
       ),
     );
   }
 
-  getIncreDecreWidget(int index) {
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    showAlertDialog(context, "Payment Failed",
+        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    print(response.data.toString());
+    showAlertDialog(context, "Payment Successful", "Payment Id: ${response.paymentId}");
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    Widget continueButton =
+        ElevatedButton(onPressed: () {}, child: const Text('Continue'));
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
+  }
+
+  getIncrementDecrementWidget(int index) {
     final cartProvider = Provider.of<CartProvider>(context);
     return Row(
       children: [

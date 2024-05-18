@@ -19,4 +19,14 @@ class FavProvider extends ChangeNotifier{
     final isExist = _favouriteList.contains(productSneakersModel);
     return isExist;
   }
+
+  void incrementQuantity(ProductSneakersModel productSneakersModel){
+    productSneakersModel.quantity++;
+    notifyListeners();
+  }
+
+  void decrementQuantity(ProductSneakersModel productSneakersModel){
+    productSneakersModel.quantity--;
+    notifyListeners();
+  }
 }

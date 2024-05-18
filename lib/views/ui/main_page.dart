@@ -15,12 +15,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<Widget> pageList = const [
+  List<Widget> pageList = [
     HomePage(),
     SearchPage(),
     HomePage(),
     CartPage(),
-    ProfilePage(),
+    ProfileScreen(),
   ];
 
   @override

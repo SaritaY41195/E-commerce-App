@@ -2,8 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
-
-import '../../auth/firebase_auth.dart';
+import '../../services/auth/firebase_auth.dart';
 import 'login_page.dart';
 
 class SignUpScreen extends StatefulWidget {

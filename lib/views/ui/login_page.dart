@@ -3,8 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter_e_commerce_app/common/common_button.dart';
 import 'package:flutter_e_commerce_app/views/ui/home_page.dart';
 import 'package:flutter_e_commerce_app/views/ui/signup_page.dart';
-
-import '../../auth/firebase_auth.dart';
+import '../../services/auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

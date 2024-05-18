@@ -82,33 +82,21 @@ class _FavouritePageState extends State<FavouritePage> {
                                         ),
                                       ),
                                     ),
-                                    trailing: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          '\u{20B9}${favouriteItem.price.toString()}',
-                                          style: const TextStyle(fontSize: 22),
+                                    trailing: Container(
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '\u{20B9}${favouriteItem.price.toString()}',
+                                              style: const TextStyle(fontSize: 16),
+                                            ),
+                                            TextButton(onPressed: (){
+                                              // favouriteProvider.toggelFavourite(favouriteItem.id);
+                                            }, child: const Text('Remove')),
+                                          ],
                                         ),
-
-                                         Row(
-                                            textDirection: TextDirection.ltr,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const CommonContainer(height: 20, width: 30, color: Colors.black38, child: Center(
-                                                  child:  Text(
-                                                    '-',textAlign: TextAlign.center,
-                                                    style: TextStyle(fontSize: 20, color: Colors.white),
-                                                  )),),
-                                              Text(favouriteItem.quantity.toString()),
-                                              const CommonContainer(height: 20, width: 30, color: Colors.black38, child: Center(
-                                                  child:  Text(
-                                                    '+',textAlign: TextAlign.center,
-                                                    style: TextStyle(fontSize: 20, color: Colors.white),
-                                                  )),),
-                                            ],
-                                          ),
-
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),

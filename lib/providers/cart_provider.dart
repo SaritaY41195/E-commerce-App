@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../models/product_card_model.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +20,15 @@ class CartProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  totalPrice(){
-    double total1= 0.0;
+  double totalPrice(){
+    double total1= 0;
     for (ProductSneakersModel element in _cartList){
       total1 += element.price * element.quantity;
     }
     return total1;
+  }
+
+  clearList(){
+    _cartList.clear();
   }
 }

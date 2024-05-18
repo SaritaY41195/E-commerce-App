@@ -2,7 +2,7 @@ class ProductSneakersModel {
   final String id;
   final String image;
   final String name;
-  final int price;
+  final double price;
   final String category;
   final String title;
   final String description;

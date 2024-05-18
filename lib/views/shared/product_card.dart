@@ -93,44 +93,28 @@ class _ProductCardState extends State<ProductCard> {
                             style: appStyle(
                                 30, Colors.black, FontWeight.w600),
                           ),
-                          Row(
-                            children: [
-                              TextButton(
-                                child:
-                                cartProvider.cartList.contains(widget.item)
-                              ? Text('Added',style: appStyle(18, Colors.red, FontWeight.w500),)
-                              : Text('Add to cart',style: appStyle(18, Colors.blue, FontWeight.w500),),
-                                onPressed: () {
-                                  if(cartProvider.cartList.contains(widget.item)){
-                                     setState(() {
-                                       cartProvider.cartList.remove(widget.item);
-                                     });
-                                  }
-                                  else{
-                                    setState(() {
-                                      cartProvider.cartList.add(widget.item);
-                                    });
-                                  }
-                                },
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              // Text(
-                              //   'Colors ',
-                              //   style:
-                              //       appStyle(18, Colors.grey, FontWeight.w500),
-                              // ),
-                              // const SizedBox(
-                              //   width: 5,
-                              // ),
-                              // ChoiceChip(
-                              //   label: const Text(" "),
-                              //   selected: selected,
-                              //   visualDensity: VisualDensity.compact,
-                              //   selectedColor: Colors.black,
-                              // ),
-                            ],
+                          Expanded(
+                            child: TextButton(
+                              child:
+                              cartProvider.cartList.contains(widget.item)
+                            ? Text('Added',style: appStyle(16, Colors.red, FontWeight.w500),)
+                            : Text('Add To Cart',style: appStyle(14, Colors.blue, FontWeight.w500),),
+                              onPressed: () {
+                                if(cartProvider.cartList.contains(widget.item)){
+                                   setState(() {
+                                     cartProvider.cartList.remove(widget.item);
+                                   });
+                                }
+                                else{
+                                  setState(() {
+                                    cartProvider.cartList.add(widget.item);
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
                           ),
                         ],
                       ),

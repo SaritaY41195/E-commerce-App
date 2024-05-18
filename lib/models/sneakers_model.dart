@@ -2,8 +2,8 @@ class SneakeersModel {
   String? id;
   String? name;
   String? category;
-  String? price;
-  String? oldPrice;
+  double? price;
+  double? oldPrice;
   List<String>? imageUrl;
   List<Sizes>? sizes;
   String? description;
